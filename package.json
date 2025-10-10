@@ -1,13 +1,13 @@
 {
-  "name": "final-infosys-project",
+  "name": "ai-budget-forecasting",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd Backend && npm start",
+    "build": "cd Backend && npm install && npx prisma generate",
+    "postinstall": "cd Backend && npm install"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
