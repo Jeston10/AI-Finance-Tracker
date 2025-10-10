@@ -2,13 +2,13 @@
   "name": "ai-budget-forecasting-backend",
   "version": "1.0.0",
   "description": "AI Budget Forecasting Backend API",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "build": "npx prisma generate && tsc",
+    "build": "npx prisma generate",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
-    "start": "npx prisma generate && node dist/index.js",
-    "start:prod": "node dist/index.js",
+    "start": "tsx src/index.ts",
+    "start:prod": "tsx src/index.ts",
     "postinstall": "npx prisma generate",
     "lint": "eslint \\src/**/*.ts\\"
   },

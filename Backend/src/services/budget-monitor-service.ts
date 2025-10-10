@@ -1,4 +1,4 @@
-import { emailService, BudgetExceedanceAlert } from './email-service.js';
+import { emailService, type BudgetExceedanceAlert } from './email-service.js';
 import { getPrisma } from './prisma.js';
 import dayjs from 'dayjs';
 
