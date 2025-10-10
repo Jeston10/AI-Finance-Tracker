@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  name          String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  budgets       Budget[]
+  transactions  Transaction[]
+  budgetTargets BudgetTarget?
+  budgetAlerts  BudgetAlert[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  description String
+  amount      Decimal  @db.Decimal(18, 2)
+  currency    String   @default("USD")
+  category    String?
+  date        DateTime
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Budget {
+  id          String   @id @default(cuid())
+  userId      String
+  month       Int
+  year        Int
+  totalLimit  Decimal  @db.Decimal(18, 2)
+  suggestions Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, month, year], name: "userId_month_year")
+}
+
+model BudgetTarget {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  dailyLimit   Decimal  @default(100) @db.Decimal(18, 2)
+  weeklyLimit  Decimal  @default(700) @db.Decimal(18, 2)
+  monthlyLimit Decimal  @default(3000) @db.Decimal(18, 2)
+  yearlyLimit  Decimal  @default(36000) @db.Decimal(18, 2)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BudgetAlert {
+  id         String   @id @default(cuid())
+  userId     String
+  budgetType String   // 'daily', 'weekly', 'monthly', 'yearly'
+  periodKey  String   // e.g., '2025-10-10', '2025-W41', '2025-10', '2025'
+  sentAt     DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, budgetType, periodKey])
+  @@index([userId, budgetType])
+}
+
+enum Role {
+  USER
+  ADMIN
+}

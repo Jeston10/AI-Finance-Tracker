@@ -1,0 +1,97 @@
+AI-Powered Personal Finance Tracker - Functional Overview
+
+Core Functional Areas
+1) Authentication & User Management
+   - Email-based signup and login (JWT-based sessions in the API layer)
+   - User profile management (name, avatar/image uploads)
+   - Financial profile capture (income, savings rate, preferred currency)
+   - Admin and standard user roles
+
+2) Transactions & Categories
+   - Create, list, filter, and export transactions (CSV export)
+   - Categories listing and management
+   - Upcoming bills endpoint and reminders
+   - Currency conversion endpoint for transaction totals
+
+3) Data Input Enhancements
+   - Receipt scanning via OCR to extract merchant, date, total, line items
+   - Voice-based expense entry using Web Speech API on the frontend and NLP parsing server-side
+
+4) AI/ML Capabilities
+   - Smart categorization of expenses 
+   - Forecasting engine combining Prophet and LSTM for trend prediction
+   - AI budgeting using Gradient Boosted Decision Trees (budget suggestions per user)
+   - Savings insights and projections (monthly trends, history, and goal-based projections)
+
+5) Budgeting & Insights
+   - Budget creation and history tracking per user
+   - Budget insight views and acceptance flow for suggested budgets
+   - Spending insights, savings insights, and projections endpoints
+
+6) Group Expenses (Shared Finance)
+   - Groups, group members, group expenses, and settlements
+   - Group dashboards and basic page views to visualize shared spending
+
+7) Notifications & Reminders
+   - System notifications 
+   - Scheduled reminders 
+   - Periodic tasks (e.g., bill reminders, background cleanups)
+
+8) Payments & Subscriptions
+   - Subscription creation and verification endpoints
+   - Recurring payments CRUD endpoints
+   - Basic admin export for payments
+
+9) Admin Dashboard & Analytics
+   - Admin dashboard pages (users, transactions, payments, notifications, settings)
+   - User and revenue statistics
+   - Activity logs (basic analytics of user actions)
+   - Bulk user actions (updates, exports, deletions)
+
+10) Frontend/UI
+   - HTML + Tailwind CSS templates and static assets
+   - Dashboard with summaries, spending analysis, charts
+   - Pages for group expenses, admin, and user dashboards
+
+11) Storage & Data
+   - Model artifacts: classifier/vectorizer pkl files and datasets for categorization
+   - SQL backups and seed data scripts (backup.sql / finance.sql)
+
+12) APIs & Endpoints (Representative)
+   - Users: signup, login/refresh token, profile setup, financial input, user data, avatar update
+   - Transactions: process voice entry, confirm transaction, list/create transactions, categories, currency convert, export CSV, upcoming bills, budget endpoints
+   - Insights: AI insights, accept suggested budget, budget insights, savings insights, projections, monthly savings history, notifications list and mark-as-read
+   - Payments: create subscription, verify payment, recurring payments CRUD
+   - Group Expenses: groups, group-expenses, group-members, settlements (viewsets)
+   - Analytics: user stats, revenue stats, activity logs
+   - Admin dashboard: users/transactions/payments/notifications/settings pages and exports
+
+13) Background Processing
+   - Task queue and scheduler for reminders and periodic jobs
+
+14) Security & Config
+   - JWT-based session/authentication for API
+   - Environment-driven configuration (.env for secrets, DB URL, Redis URL)
+
+Suggested Minimal Set to Replicate for an "AI Budgeting Forecast Tool"
+- Users/Auth: JWT auth, profile, and financial inputs (income, goals)
+- Transactions: CRUD, CSV export, categories, upcoming bills
+- AI/ML:
+  * Categorization: load vectorizer/classifier to auto-tag expenses
+  * Forecasting: Prophet + optional LSTM for sequences
+  * Budget Suggestions: Gradient Boosted Trees to propose budgets
+- Insights: savings projections, budget insights, acceptance of suggested budgets
+- Reminders: scheduled notifications for bills 
+- Admin/Analytics: basic stats and exports
+- Frontend: dashboard with summaries, trends, and projections
+
+
+Notes for Building Your New Project
+- Preserve request/response shapes so the existing frontend pages work with minimal changes.
+- Centralize model inference (categorization, forecasting, budgeting) behind service classes for testability.
+- Use environment variables for secrets and URLs.
+- Add health checks and observability (logs for background job outcomes).
+- Start with Prophet-only forecasting, then add LSTM if needed.
+- Ensure reminders run via a simple periodic task schedule (Huey).
+
+
