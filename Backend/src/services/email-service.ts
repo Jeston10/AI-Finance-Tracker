@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer';
-import { config } from '../config/config.js';
+import { env } from '../config/env.js';
 
 export interface BudgetExceedanceAlert {
   userId: string;

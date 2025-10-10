@@ -270,7 +270,15 @@ class BudgetMonitorService {
    */
   private async getLastAlertTime(alertKey: string): Promise<Date | null> {
     try {
-      const [userId, budgetType, periodKey] = alertKey.split('-');
+      const parts = alertKey.split('-');
+      const userId = parts[0];
+      const budgetType = parts[1];
+      const periodKey = parts.slice(2).join('-'); // Handle period keys with dashes
+      
+      if (!userId || !budgetType || !periodKey) {
+        console.error('❌ Invalid alert key format:', alertKey);
+        return null;
+      }
       
       const alert = await prisma.budgetAlert.findUnique({
         where: {
@@ -316,7 +324,15 @@ class BudgetMonitorService {
    */
   private async recordAlertSent(alertKey: string): Promise<void> {
     try {
-      const [userId, budgetType, periodKey] = alertKey.split('-');
+      const parts = alertKey.split('-');
+      const userId = parts[0];
+      const budgetType = parts[1];
+      const periodKey = parts.slice(2).join('-'); // Handle period keys with dashes
+      
+      if (!userId || !budgetType || !periodKey) {
+        console.error('❌ Invalid alert key format:', alertKey);
+        return;
+      }
       
       await prisma.budgetAlert.upsert({
         where: {

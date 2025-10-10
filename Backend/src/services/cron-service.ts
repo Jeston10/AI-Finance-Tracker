@@ -1,8 +1,8 @@
-import cron from 'node-cron';
+import * as cron from 'node-cron';
 import { budgetMonitorService } from './budget-monitor-service.js';
 
 class CronService {
-  private tasks: cron.ScheduledTask[] = [];
+  private tasks: any[] = [];
 
   /**
    * Start all scheduled tasks
@@ -18,8 +18,6 @@ class CronService {
       } catch (error) {
         console.error('❌ Error in hourly budget monitoring:', error);
       }
-    }, {
-      scheduled: false
     });
 
     // Run budget monitoring every day at 9 AM
@@ -30,8 +28,6 @@ class CronService {
       } catch (error) {
         console.error('❌ Error in daily budget monitoring:', error);
       }
-    }, {
-      scheduled: false
     });
 
     // Run budget monitoring every Monday at 10 AM (weekly check)
@@ -42,8 +38,6 @@ class CronService {
       } catch (error) {
         console.error('❌ Error in weekly budget monitoring:', error);
       }
-    }, {
-      scheduled: false
     });
 
     // Run budget monitoring on the 1st of every month at 11 AM
@@ -54,8 +48,6 @@ class CronService {
       } catch (error) {
         console.error('❌ Error in monthly budget monitoring:', error);
       }
-    }, {
-      scheduled: false
     });
 
     // Store tasks
