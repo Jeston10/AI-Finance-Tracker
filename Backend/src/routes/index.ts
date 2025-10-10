@@ -8,6 +8,7 @@ import { insightsRouter } from './insights';
 import { notificationsRouter } from './notifications';
 import { adminRouter } from './admin';
 import budgetMonitoringRouter from './budget-monitoring';
+import newsRouter from './news';
 
 export function registerRoutes(): Router {
 	const router = Router();
@@ -20,6 +21,7 @@ export function registerRoutes(): Router {
 		router.use(notificationsRouter);
 		router.use(adminRouter);
 		router.use('/budget-monitoring', budgetMonitoringRouter);
+		router.use(newsRouter);
 	return router;
 }
 

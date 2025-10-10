@@ -18,6 +18,7 @@ export function SidebarNav({ onClose }: { onClose: () => void }) {
     { href: "/analytics", icon: "/analytics-icon.svg", label: "Analytics" },
     { href: "/transactions", icon: "/transactions-icon.svg", label: "Transactions" },
     { href: "/ai-insights", icon: "/ai-insights-icon.svg", label: "AI Insights" },
+    { href: "/news", icon: "/news-icon.svg", label: "Financial News" },
     { href: "/connect-bank", icon: "/bank-connectivity.svg", label: "Connect Bank" },
     { href: "/about", icon: "/about-icon.svg", label: "About" },
   ]
