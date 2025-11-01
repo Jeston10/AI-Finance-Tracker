@@ -1,6 +1,6 @@
 # ✅ Production Deployment Fixes Applied
 
-All potential production errors have been identified and fixed for Railway deployment.
+All potential production errors have been identified and fixed for Render.com deployment.
 
 ---
 
@@ -48,62 +48,47 @@ All potential production errors have been identified and fixed for Railway deplo
 **Files Modified**:
 - `package.json`
 
-### 5. ✅ Railway Configuration
+### 5. ✅ Render Configuration
 
-**Issue**: Railway using wrong start command
-**Fix**: Created explicit configuration files
+**Issue**: Render using wrong start command
+**Fix**: Created explicit configuration file
 
 **Files Created**:
-- `railway.json` - Railway-specific config
-- `nixpacks.toml` - Nixpacks build configuration
-- `render.yaml` - Alternative for Render.com
+- `render.yaml` - Render.com deployment configuration
 
 ---
 
 ## 📋 Deployment Configuration Files
 
-### `railway.json`
-```json
-{
-  "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "npm install && npm run build"
-  },
-  "deploy": {
-    "startCommand": "npm run start:prod",
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
-  }
-}
-```
-
-### `nixpacks.toml`
-```toml
-[phases.setup]
-nixPkgs = ['nodejs_20']
-
-[phases.install]
-cmds = ['npm ci']
-
-[phases.build]
-cmds = ['npm run build']
-
-[start]
-cmd = 'npm run start:prod'
+### `render.yaml`
+```yaml
+services:
+  - type: web
+    name: ai-budget-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
 ```
 
 ---
 
-## 🚀 Railway Deployment Settings
+## 🚀 Render Deployment Settings
 
 ### Required Configuration:
 
-**In Railway Dashboard:**
+**In Render Dashboard:**
 
 1. **Service Settings**:
    - Root Directory: `Backend`
-   - Build Command: `npm install && npm run build`
-   - Start Command: `npm run start:prod`
+   - Build Command: `npm install && npx prisma generate`
+   - Start Command: `npm start`
 
 2. **Environment Variables** (All Required):
    ```
@@ -118,8 +103,8 @@ cmd = 'npm run start:prod'
    EMAIL_USER=sjestonsingh@gmail.com
    EMAIL_PASSWORD=rxskhxshlmsncnzu
    NEWS_API_KEY=<your_newsapi_key>
-   FRONTEND_ORIGIN=https://your-app.vercel.app
-   FRONTEND_URL=https://your-app.vercel.app
+   FRONTEND_ORIGIN=https://ai-finance-tracker-six.vercel.app
+   FRONTEND_URL=https://ai-finance-tracker-six.vercel.app
    SUPABASE_URL=https://ctednhuhnuuefvcrhyto.supabase.co
    SUPABASE_ANON_KEY=<your_key>
    SUPABASE_SERVICE_ROLE_KEY=<your_key>
@@ -184,7 +169,7 @@ npm run build
 
 ### Issue: Port Conflicts
 **Prevention**:
-- Uses `process.env.PORT` (Railway auto-sets this)
+- Uses `process.env.PORT` (Render auto-sets this)
 - Defaults to 4000 for local development
 
 ### Issue: Database Connection Fails
@@ -236,14 +221,14 @@ git commit -m "Production ready - all fixes applied"
 git push origin main
 ```
 
-### 2. Deploy to Railway
-1. Create new project on Railway.app
+### 2. Deploy to Render
+1. Create new web service on Render.com
 2. Connect GitHub repository
 3. Select `Backend` as root directory
 4. Add all environment variables
 5. Deploy!
 
-Railway will automatically:
+Render will automatically:
 - Install dependencies
 - Generate Prisma client
 - Build TypeScript code
@@ -251,7 +236,7 @@ Railway will automatically:
 
 ### 3. Verify Deployment
 ```bash
-curl https://your-app.up.railway.app/api/health
+curl https://your-app.onrender.com/api/health
 ```
 
 Expected response:
@@ -266,7 +251,7 @@ Expected response:
 
 ## 🎉 Success!
 
-Your backend is now **100% production-ready** for Railway deployment!
+Your backend is now **100% production-ready** for Render deployment!
 
 All potential errors have been:
 - ✅ Identified

@@ -4,16 +4,16 @@ This guide will help you deploy your AI Budget Forecasting application to produc
 
 ## 📋 Architecture
 
-- **Frontend**: Next.js → Deploy to **Vercel**
-- **Backend**: Node.js/Express → Deploy to **Railway.app** or **Render.com**
+- **Frontend**: Next.js → Deploy to **Vercel** ✅ (https://ai-finance-tracker-six.vercel.app/)
+- **Backend**: Node.js/Express → Deploy to **Render.com** ✅
 - **Database**: PostgreSQL → Already on **Supabase** ✅
 
 ---
 
-## 🔧 Part 1: Deploy Backend (Railway.app - Recommended)
+## 🔧 Part 1: Deploy Backend (Render.com)
 
-### Why Railway?
-- ✅ Free tier with $5 credit/month
+### Why Render?
+- ✅ Free tier available
 - ✅ Easy PostgreSQL integration
 - ✅ Automatic deployments from GitHub
 - ✅ Environment variables management
@@ -21,19 +21,24 @@ This guide will help you deploy your AI Budget Forecasting application to produc
 
 ### Steps:
 
-#### 1. Sign up for Railway
-- Go to: https://railway.app/
+#### 1. Sign up for Render
+- Go to: https://render.com/
 - Sign up with GitHub
 
-#### 2. Create New Project
-- Click "New Project"
-- Select "Deploy from GitHub repo"
-- Connect your GitHub account
+#### 2. Create New Web Service
+- Click "New +" → "Web Service"
+- Connect your GitHub repository
 - Select your repository
-- Choose the `Backend` folder as root directory
 
-#### 3. Configure Environment Variables
-In Railway dashboard, go to **Variables** tab and add:
+#### 3. Configure Service Settings
+- **Name**: ai-budget-backend
+- **Root Directory**: `Backend`
+- **Environment**: Node
+- **Build Command**: `npm install && npx prisma generate`
+- **Start Command**: `npm start`
+
+#### 4. Configure Environment Variables
+In Render dashboard, go to **Environment** tab and add:
 
 ```
 PORT=4000
@@ -49,19 +54,14 @@ GROQ_API_KEY=<your_groq_key>
 HUGGINGFACE_API_KEY=<your_huggingface_key>
 EMAIL_USER=sjestonsingh@gmail.com
 EMAIL_PASSWORD=<your_gmail_app_password>
-FRONTEND_ORIGIN=https://your-app.vercel.app
-FRONTEND_URL=https://your-app.vercel.app
+FRONTEND_ORIGIN=https://ai-finance-tracker-six.vercel.app
+FRONTEND_URL=https://ai-finance-tracker-six.vercel.app
 NEWS_API_KEY=<your_newsapi_key>
 ```
 
-#### 4. Configure Build Settings
-- **Root Directory**: `Backend`
-- **Build Command**: `npm install && npx prisma generate`
-- **Start Command**: `npm start`
-
 #### 5. Deploy
-- Click "Deploy"
-- Railway will give you a URL like: `https://your-app.up.railway.app`
+- Click "Create Web Service"
+- Render will give you a URL like: `https://your-app.onrender.com`
 - Copy this URL for frontend configuration
 
 ---
@@ -89,8 +89,8 @@ NEWS_API_KEY=<your_newsapi_key>
 In Vercel dashboard, add these environment variables:
 
 ```
-NEXT_PUBLIC_API_URL=https://your-backend.up.railway.app/api
-NEXT_PUBLIC_SOCKET_URL=https://your-backend.up.railway.app
+NEXT_PUBLIC_API_URL=https://your-backend.onrender.com/api
+NEXT_PUBLIC_SOCKET_URL=https://your-backend.onrender.com
 ```
 
 #### 5. Deploy
@@ -98,7 +98,7 @@ NEXT_PUBLIC_SOCKET_URL=https://your-backend.up.railway.app
 - Vercel will give you a URL like: `https://your-app.vercel.app`
 
 #### 6. Update Backend CORS
-After getting your Vercel URL, go back to Railway and update:
+After getting your Vercel URL, go back to Render and update:
 ```
 FRONTEND_ORIGIN=https://your-app.vercel.app
 FRONTEND_URL=https://your-app.vercel.app
@@ -125,7 +125,7 @@ export const config = {
 
 1. **Backend Health Check**
    ```
-   curl https://your-backend.up.railway.app/api/health
+   curl https://your-backend.onrender.com/api/health
    ```
 
 2. **Frontend**
@@ -140,30 +140,12 @@ export const config = {
 
 ---
 
-## 🆓 Alternative: Render.com (Backend)
-
-If you prefer Render over Railway:
-
-### Steps:
-1. Go to: https://render.com/
-2. Sign up with GitHub
-3. Click "New" → "Web Service"
-4. Connect your repository
-5. Configure:
-   - **Root Directory**: `Backend`
-   - **Build Command**: `npm install && npx prisma generate`
-   - **Start Command**: `npm start`
-6. Add all environment variables from above
-7. Deploy
-
----
-
 ## 📊 Cost Breakdown
 
 | Service | Free Tier | Cost |
 |---------|-----------|------|
 | **Vercel** (Frontend) | 100GB bandwidth/month | Free |
-| **Railway** (Backend) | $5 credit/month | Free |
+| **Render** (Backend) | 750 hours/month | Free |
 | **Supabase** (Database) | 500MB database, 2GB bandwidth | Free |
 | **NewsAPI** | 100 requests/day | Free |
 | **Total** | | **$0/month** |
@@ -185,8 +167,8 @@ Before deploying:
 
 ## 🐛 Troubleshooting
 
-### Backend won't start on Railway:
-- Check logs in Railway dashboard
+### Backend won't start on Render:
+- Check logs in Render dashboard
 - Verify all environment variables are set
 - Ensure `package.json` has correct `start` script
 
@@ -206,12 +188,12 @@ Before deploying:
 
 After deployment:
 1. Set up custom domain (optional)
-2. Configure SSL certificates (automatic on Vercel/Railway)
+2. Configure SSL certificates (automatic on Vercel/Render)
 3. Set up monitoring and alerts
 4. Configure automatic deployments from GitHub
 5. Add production analytics
 
 ---
 
-**Need help?** Check the Railway/Vercel documentation or let me know if you encounter any issues!
+**Need help?** Check the Render/Vercel documentation or let me know if you encounter any issues!
 

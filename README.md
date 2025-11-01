@@ -284,8 +284,8 @@ npm run dev
 See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
 **Recommended Stack:**
-- Frontend: **Vercel** (Free)
-- Backend: **Railway.app** (Free $5/month credit)
+- Frontend: **Vercel** (Free) ✅ Deployed at: https://ai-finance-tracker-six.vercel.app
+- Backend: **Render.com** (Free 750 hours/month)
 - Database: **Supabase** (Already configured)
 
 **Total Cost:** $0/month on free tiers!
@@ -340,13 +340,14 @@ Developed by: Infosys Final Year Project Team
 
 - **Supabase** - Database hosting
 - **Vercel** - Frontend hosting
-- **Railway** - Backend hosting
+- **Render** - Backend hosting
 - **OpenAI/Groq/Hugging Face** - AI services
 - **NewsAPI** - Financial news data
 
 ---
 
 **Built with ❤️ using Next.js, Express, and AI**
+
 
 
 

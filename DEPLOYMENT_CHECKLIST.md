@@ -13,7 +13,7 @@ git push -u origin main
 ```
 
 ### 2. Get Your API Keys Ready
-Have these ready to paste into Railway/Vercel:
+Have these ready to paste into Render/Vercel:
 
 - ✅ DATABASE_URL (from Supabase)
 - ✅ SUPABASE_ANON_KEY
@@ -26,20 +26,22 @@ Have these ready to paste into Railway/Vercel:
 
 ---
 
-## 🚂 Deploy Backend to Railway
+## 🚀 Deploy Backend to Render
 
 ### Step-by-Step:
 
-1. **Go to Railway.app** → https://railway.app/
+1. **Go to Render.com** → https://render.com/
 2. **Sign in with GitHub**
-3. **New Project** → "Deploy from GitHub repo"
-4. **Select your repository**
+3. **New +** → "Web Service"
+4. **Connect your repository** and select it
 5. **Configure**:
+   - Name: ai-budget-backend
    - Root Directory: `Backend`
-   - Build Command: Leave empty (Railway auto-detects)
+   - Environment: Node
+   - Build Command: `npm install && npx prisma generate`
    - Start Command: `npm start`
 
-6. **Add Environment Variables** (click Variables tab):
+6. **Add Environment Variables** (click Environment tab):
    ```
    PORT=4000
    NODE_ENV=production
@@ -54,20 +56,20 @@ Have these ready to paste into Railway/Vercel:
    HUGGINGFACE_API_KEY=<your_key>
    EMAIL_USER=sjestonsingh@gmail.com
    EMAIL_PASSWORD=<your_gmail_app_password>
-   FRONTEND_ORIGIN=https://your-app.vercel.app
-   FRONTEND_URL=https://your-app.vercel.app
+   FRONTEND_ORIGIN=https://ai-finance-tracker-six.vercel.app
+   FRONTEND_URL=https://ai-finance-tracker-six.vercel.app
    NEWS_API_KEY=<your_newsapi_key>
    ```
 
-7. **Deploy** → Railway will give you a URL like:
+7. **Deploy** → Render will give you a URL like:
    ```
-   https://your-app.up.railway.app
+   https://your-app.onrender.com
    ```
    **COPY THIS URL** - you'll need it for frontend!
 
 8. **Verify Backend**:
    ```
-   curl https://your-app.up.railway.app/api/health
+   curl https://your-app.onrender.com/api/health
    ```
 
 ---
@@ -87,10 +89,10 @@ Have these ready to paste into Railway/Vercel:
 
 5. **Add Environment Variables**:
    ```
-   NEXT_PUBLIC_API_URL=https://your-backend.up.railway.app/api
-   NEXT_PUBLIC_SOCKET_URL=https://your-backend.up.railway.app
+   NEXT_PUBLIC_API_URL=https://your-backend.onrender.com/api
+   NEXT_PUBLIC_SOCKET_URL=https://your-backend.onrender.com
    ```
-   ⚠️ **Replace with your actual Railway URL from step 7 above**
+   ⚠️ **Replace with your actual Render URL from step 7 above**
 
 6. **Deploy** → Vercel will give you a URL like:
    ```
@@ -98,13 +100,13 @@ Have these ready to paste into Railway/Vercel:
    ```
 
 7. **Update Backend CORS**:
-   - Go back to Railway
+   - Go back to Render
    - Update environment variables:
      ```
      FRONTEND_ORIGIN=https://your-app.vercel.app
      FRONTEND_URL=https://your-app.vercel.app
      ```
-   - Railway will auto-redeploy
+   - Render will auto-redeploy
 
 ---
 
@@ -112,7 +114,7 @@ Have these ready to paste into Railway/Vercel:
 
 **Deploy in this order:**
 
-1. ✅ **Backend First** (Railway) → Get backend URL
+1. ✅ **Backend First** (Render) → Get backend URL
 2. ✅ **Frontend Second** (Vercel) → Use backend URL in env vars
 3. ✅ **Update Backend** → Add frontend URL to CORS
 
@@ -171,13 +173,13 @@ Have these ready to paste into Railway/Vercel:
 3. **Enable 2FA** on:
    - GitHub
    - Vercel
-   - Railway
+   - Render
    - Supabase
 
 4. **Rotate API Keys** regularly
 
 5. **Monitor Usage**:
-   - Check Railway logs
+   - Check Render logs
    - Monitor Supabase usage
    - Track API rate limits
 
@@ -187,10 +189,10 @@ Have these ready to paste into Railway/Vercel:
 
 ### Free Tier Limits:
 
-**Railway:**
-- $5 credit/month
-- ~500 hours of uptime
-- Enough for hobby projects
+**Render:**
+- 750 hours/month free
+- Auto-sleeps after 15 minutes of inactivity
+- Perfect for hobby projects
 
 **Vercel:**
 - 100GB bandwidth/month
@@ -204,14 +206,10 @@ Have these ready to paste into Railway/Vercel:
 
 ### If You Exceed Free Tier:
 
-**Railway Alternative**: **Render.com**
-- 750 hours/month free
-- Similar to Railway
-- Deploy: https://render.com/
-
-**Backend Alternative**: **Fly.io**
-- 3 shared VMs free
-- Deploy: https://fly.io/
+**Render free tier includes:**
+- 750 hours/month
+- Perfect for personal projects
+- Auto-sleeps after 15 minutes of inactivity
 
 ---
 
@@ -221,7 +219,7 @@ Have these ready to paste into Railway/Vercel:
 
 #### Backend won't start:
 ```bash
-# Check Railway logs
+# Check Render logs
 # Verify all env vars are set
 # Ensure DATABASE_URL is correct
 # Check if Prisma generated correctly
@@ -231,7 +229,7 @@ Have these ready to paste into Railway/Vercel:
 ```bash
 # Verify NEXT_PUBLIC_API_URL is correct
 # Check CORS settings in backend
-# Ensure backend is running (check Railway dashboard)
+# Ensure backend is running (check Render dashboard)
 ```
 
 #### Database connection fails:
@@ -259,8 +257,8 @@ Have these ready to paste into Railway/Vercel:
 3. Update DNS records as instructed
 4. SSL certificate auto-configured
 
-### Add Custom Domain to Railway:
-1. Go to Settings → Domains
+### Add Custom Domain to Render:
+1. Go to Settings → Custom Domains
 2. Add custom domain
 3. Update DNS CNAME record
 4. SSL certificate auto-configured
@@ -272,12 +270,12 @@ Have these ready to paste into Railway/Vercel:
 Your AI Budget Forecasting app is now live and accessible worldwide!
 
 **Share your app:**
-- Frontend: `https://your-app.vercel.app`
-- Backend API: `https://your-backend.up.railway.app/api`
+- Frontend: `https://ai-finance-tracker-six.vercel.app`
+- Backend API: `https://your-backend.onrender.com/api`
 
 **Monitor your app:**
 - Vercel Analytics: Built-in
-- Railway Logs: Real-time in dashboard
+- Render Logs: Real-time in dashboard
 - Supabase Dashboard: Database metrics
 
 ---
@@ -285,7 +283,7 @@ Your AI Budget Forecasting app is now live and accessible worldwide!
 ## 📞 Support
 
 If you encounter issues:
-1. Check Railway/Vercel logs
+1. Check Render/Vercel logs
 2. Verify environment variables
 3. Test API endpoints with curl/Postman
 4. Check Supabase connection

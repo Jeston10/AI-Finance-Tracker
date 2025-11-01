@@ -7,14 +7,18 @@ import { registerRoutes } from './routes';
 export function createApp() {
 	const app = express();
 
-	app.use(helmet());
-	
-	// Configure CORS to allow all origins
+	// Configure CORS FIRST, before helmet
 	app.use(cors({ 
 		origin: true, // Allow all origins
 		credentials: true,
 		methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 		allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+	}));
+
+	// Configure helmet with CORS-friendly settings
+	app.use(helmet({
+		crossOriginResourcePolicy: { policy: "cross-origin" },
+		crossOriginEmbedderPolicy: false
 	}));
 	
 	app.use(express.json({ limit: '1mb' }));
