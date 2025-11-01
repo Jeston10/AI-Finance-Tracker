@@ -24,7 +24,7 @@ const EnvSchema = z.object({
 	OPENAI_API_KEY: z.string().optional(),
 	GROQ_API_KEY: z.string().optional(),
 	HUGGINGFACE_API_KEY: z.string().optional(),
-	FRONTEND_ORIGIN: z.string().url().default('http://localhost:5173'),
+	FRONTEND_ORIGIN: z.string().url().default('http://localhost:3000'),
 	EMAIL_USER: z.string().optional(),
 	EMAIL_PASSWORD: z.string().optional(),
 	FRONTEND_URL: z.string().url().default('http://localhost:3000'),

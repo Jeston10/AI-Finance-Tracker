@@ -34,3 +34,7 @@ router.get('/news', authenticateJwt, async (req: any, res) => {
 
 export default router;
 
+
+
+
+

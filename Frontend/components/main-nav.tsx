@@ -66,15 +66,6 @@ export function MainNav() {
               AI Insights
             </Link>
             <Link
-              href="/connect-bank"
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                pathname === "/connect-bank" ? "text-foreground" : "text-foreground/60",
-              )}
-            >
-              Connect Bank
-            </Link>
-            <Link
               href="/about"
               className={cn(
                 "transition-colors hover:text-foreground/80",
