@@ -201,8 +201,8 @@ export function AppProvider({ children }: AppProviderProps) {
       console.error('Failed to create transaction:', error);
       
       // Remove temporary transaction on error
-      setTransactions(prev => 
-        prev.filter(t => t.id.startsWith('temp-'))
+      setTransactions(prev =>
+        prev.filter(t => !t.id.startsWith('temp-'))
       );
       
       throw error;
