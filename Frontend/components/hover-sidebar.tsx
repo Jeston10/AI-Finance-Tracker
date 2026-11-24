@@ -1,13 +1,39 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import Image from "next/image"
 import { useApp } from "@/lib/contexts/app-context"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import {
+  Home,
+  BarChart3,
+  ArrowLeftRight,
+  Sparkles,
+  Newspaper,
+  Info,
+  Menu,
+  X,
+  LogOut,
+  type LucideIcon,
+} from "lucide-react"
+
+interface NavItem {
+  href: string
+  icon: LucideIcon
+  label: string
+}
+
+const navItems: NavItem[] = [
+  { href: "/", icon: Home, label: "Home" },
+  { href: "/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/transactions", icon: ArrowLeftRight, label: "Transactions" },
+  { href: "/ai-insights", icon: Sparkles, label: "AI Insights" },
+  { href: "/news", icon: Newspaper, label: "Financial News" },
+  { href: "/about", icon: Info, label: "About" },
+]
 
 export function HoverSidebar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,15 +43,6 @@ export function HoverSidebar() {
   const router = useRouter()
   const { logout } = useApp()
 
-  const navItems = [
-    { href: "/", icon: "/home-icon.svg", label: "Home" },
-    { href: "/analytics", icon: "/analytics-icon.svg", label: "Analytics" },
-    { href: "/transactions", icon: "/transactions-icon.svg", label: "Transactions" },
-    { href: "/ai-insights", icon: "/ai-insights-icon.svg", label: "AI Insights" },
-    { href: "/news", icon: "/news-icon.svg", label: "Financial News" },
-    { href: "/about", icon: "/about-icon.svg", label: "About" },
-  ]
-
   const handleLogout = () => {
     logout()
     toast.success("Logged out successfully!")
@@ -33,7 +50,6 @@ export function HoverSidebar() {
     router.push("/login")
   }
 
-  // Handle hover events
   const handleMouseEnter = () => {
     setIsHovering(true)
     setIsOpen(true)
@@ -41,7 +57,6 @@ export function HoverSidebar() {
 
   const handleMouseLeave = () => {
     setIsHovering(false)
-    // Delay closing to allow moving mouse to sidebar
     setTimeout(() => {
       if (!isHovering) {
         setIsOpen(false)
@@ -61,85 +76,93 @@ export function HoverSidebar() {
 
   return (
     <>
-      {/* Menu Icon */}
+      {/* Menu trigger — top right */}
       <div
-        className="fixed top-4 left-4 z-50"
+        className="fixed top-4 right-4 z-50"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 cursor-pointer group">
-          <Image src="/menu-icon.svg" alt="Menu" width={24} height={24} className="group-hover:opacity-80 transition-opacity" />
-        </div>
+        <button
+          type="button"
+          aria-label="Open navigation menu"
+          onClick={() => setIsOpen(true)}
+          className="flex h-11 w-11 items-center justify-center rounded-lg border bg-background/95 shadow-sm backdrop-blur transition-all duration-200 hover:bg-accent hover:shadow-md supports-[backdrop-filter]:bg-background/70"
+        >
+          <Menu className="h-5 w-5 text-foreground" />
+        </button>
       </div>
 
-      {/* Sidebar */}
-      <div
+      {/* Sidebar — slides in from the right */}
+      <aside
         ref={sidebarRef}
         className={cn(
-          "fixed top-0 left-0 z-40 h-full w-64 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-r shadow-xl transition-all duration-300 ease-in-out transform",
-          isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+          "fixed top-0 right-0 z-40 h-full w-64 border-l bg-background/95 shadow-xl backdrop-blur transition-transform duration-300 ease-in-out supports-[backdrop-filter]:bg-background/80",
+          isOpen ? "translate-x-0" : "translate-x-full"
         )}
         onMouseEnter={handleSidebarMouseEnter}
         onMouseLeave={handleSidebarMouseLeave}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex items-center justify-end p-4 border-b">
+          <div className="flex items-center justify-between border-b px-4 py-4">
+            <span className="text-sm font-semibold tracking-tight text-foreground">Menu</span>
             <button
+              type="button"
+              aria-label="Close navigation menu"
               onClick={() => setIsOpen(false)}
-              className="p-1 hover:bg-muted rounded-md transition-colors"
+              className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
-              <Image src="/close-icon.svg" alt="Close" width={16} height={16} />
+              <X className="h-4 w-4" />
             </button>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4">
-            <div className="space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition-all duration-200 hover:bg-muted/50",
-                    pathname === item.href 
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                      : "text-foreground/70 hover:text-foreground hover:bg-muted/30"
-                  )}
-                >
-                  <Image src={item.icon} alt={item.label} width={20} height={20} className="flex-shrink-0" />
-                  <span className="truncate">{item.label}</span>
-                </Link>
-              ))}
+          <nav className="flex-1 overflow-y-auto p-3">
+            <div className="space-y-1">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Icon className="h-5 w-5 flex-shrink-0" strokeWidth={2} />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                )
+              })}
             </div>
 
-            {/* Logout Section */}
-            <div className="mt-6 pt-4 border-t">
-              <div className="text-xs font-medium text-muted-foreground mb-2 px-3">Account</div>
+            {/* Account */}
+            <div className="mt-6 border-t pt-4">
+              <div className="mb-1 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Account
+              </div>
               <Button
                 variant="ghost"
-                className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium justify-start text-foreground/70 hover:text-foreground hover:bg-muted/30"
+                className="w-full justify-start gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                 onClick={handleLogout}
               >
-                <Image src="/logout-icon.svg" alt="Logout" width={16} height={16} className="flex-shrink-0" />
+                <LogOut className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Logout</span>
               </Button>
             </div>
           </nav>
-
-          {/* Footer */}
-          <div className="p-4 border-t">
-            <div className="text-xs text-muted-foreground text-center">
-              Hover to open • Click to navigate
-            </div>
-          </div>
         </div>
-      </div>
+      </aside>
 
-      {/* Overlay for mobile */}
+      {/* Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm md:hidden"
+        <div
+          className="fixed inset-0 z-30 bg-foreground/10 backdrop-blur-sm md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

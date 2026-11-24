@@ -142,7 +142,7 @@ export function BudgetAlertCard() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-orange-500" />
+            <AlertTriangle className="h-5 w-5 text-primary" />
             Budget Alerts & Monitoring
           </CardTitle>
           <div className="flex gap-2">
@@ -179,17 +179,17 @@ export function BudgetAlertCard() {
       <CardContent className="space-y-6">
         {/* Test Email Status */}
         {testEmailSent !== null && (
-          <Alert className={testEmailSent ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}>
+          <Alert className={testEmailSent ? "border-primary/30 bg-primary/5" : "border-destructive/30 bg-destructive/5"}>
             <AlertDescription className="flex items-center gap-2">
               {testEmailSent ? (
                 <>
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                  <span className="text-green-800">Test email sent successfully!</span>
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                  <span className="text-foreground">Test email sent successfully!</span>
                 </>
               ) : (
                 <>
-                  <XCircle className="h-4 w-4 text-red-600" />
-                  <span className="text-red-800">Failed to send test email. Check your email configuration.</span>
+                  <XCircle className="h-4 w-4 text-destructive" />
+                  <span className="text-foreground">Failed to send test email. Check your email configuration.</span>
                 </>
               )}
             </AlertDescription>
@@ -211,7 +211,7 @@ export function BudgetAlertCard() {
                   transition={{ delay: 0.1 }}
                   className="relative"
                 >
-                  <Card className={`${isExceeded ? 'border-red-200 bg-red-50' : data.percentage >= 80 ? 'border-orange-200 bg-orange-50' : 'border-green-200 bg-green-50'}`}>
+                  <Card className={`${isExceeded ? 'border-destructive/40 bg-destructive/10' : data.percentage >= 80 ? 'border-destructive/20 bg-destructive/5' : 'border-primary/20 bg-primary/5'}`}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="font-semibold capitalize flex items-center gap-1">
@@ -246,7 +246,7 @@ export function BudgetAlertCard() {
                       </div>
                       
                       {isExceeded && (
-                        <div className="mt-2 p-2 bg-red-100 border border-red-200 rounded text-red-800 text-xs">
+                        <div className="mt-2 p-2 bg-destructive/10 border border-destructive/20 rounded text-destructive text-xs">
                           <AlertTriangle className="h-3 w-3 inline mr-1" />
                           Budget exceeded by {formatCurrency(data.spent - data.budget)}
                         </div>

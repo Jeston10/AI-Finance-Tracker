@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Image from "next/image"
+import { Search, Newspaper, ArrowUpRight } from "lucide-react"
 import { useApp } from "@/lib/contexts/app-context"
 
 interface NewsArticle {
@@ -197,8 +197,8 @@ export default function NewsPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-md"
         >
-          <Image src="/news-icon.svg" alt="News" width={80} height={80} className="mx-auto mb-6 opacity-50" />
-          <h1 className="text-4xl font-bold tracking-tight mb-4 text-slate-900 dark:text-white">Financial News</h1>
+          <Newspaper className="mx-auto mb-6 h-16 w-16 text-primary/40" strokeWidth={1.5} />
+          <h1 className="text-4xl font-bold tracking-tight mb-4 text-foreground">Financial News</h1>
           <p className="text-muted-foreground mb-8">
             Please log in to access the latest financial news and market updates from around the world.
           </p>
@@ -216,7 +216,7 @@ export default function NewsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Financial News
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
@@ -232,18 +232,12 @@ export default function NewsPage() {
         transition={{ duration: 0.5, delay: 0.1 }}
         className="mb-8"
       >
-        <Card className="border-2 shadow-lg">
+        <Card className="shadow-sm">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Image 
-                    src="/search-icon.svg" 
-                    alt="Search" 
-                    width={16} 
-                    height={16} 
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" 
-                  />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     placeholder="Search news..."
                     className="pl-10"
@@ -281,9 +275,9 @@ export default function NewsPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       ) : filteredNews.length === 0 ? (
-        <Card className="border-2">
+        <Card>
           <CardContent className="py-20 text-center">
-            <Image src="/news-icon.svg" alt="No news" width={64} height={64} className="mx-auto mb-4 opacity-30" />
+            <Newspaper className="mx-auto mb-4 h-14 w-14 text-muted-foreground/40" strokeWidth={1.5} />
             <p className="text-muted-foreground text-lg">No news articles found matching your criteria.</p>
           </CardContent>
         </Card>
@@ -296,7 +290,7 @@ export default function NewsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 cursor-pointer group">
+              <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-primary/40 cursor-pointer group">
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
@@ -317,7 +311,7 @@ export default function NewsPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Image src="/news-icon.svg" alt="Source" width={16} height={16} />
+                        <Newspaper className="h-4 w-4 text-primary" />
                       </div>
                       <span className="text-sm font-medium text-muted-foreground">{article.source}</span>
                     </div>
@@ -332,7 +326,8 @@ export default function NewsPage() {
                       }}
                       disabled={!article.url || article.url === '#'}
                     >
-                      Read More →
+                      Read More
+                      <ArrowUpRight className="ml-1 h-4 w-4" />
                     </Button>
                   </div>
                 </CardContent>
@@ -341,23 +336,6 @@ export default function NewsPage() {
           ))}
         </div>
       )}
-
-      {/* Info Section */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="mt-12"
-      >
-        <Card className="border-2 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
-          <CardContent className="py-8 text-center">
-            <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">Stay Informed</h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Get real-time updates on financial markets, economic indicators, and breaking news that could impact your investments and financial decisions.
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
     </main>
   )
 }
