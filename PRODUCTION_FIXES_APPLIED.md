@@ -94,7 +94,7 @@ services:
    ```
    NODE_ENV=production
    PORT=4000
-   DATABASE_URL=postgresql://postgres.ctednhuhnuuefvcrhyto:gfdytyytxtt@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?pgbouncer=true
+   DATABASE_URL=postgresql://postgres.<project-ref>:<your_database_password>@<host>.pooler.supabase.com:5432/postgres?pgbouncer=true
    JWT_SECRET=<generate_new_32_char_secret>
    JWT_EXPIRES_IN=7d
    OPENAI_API_KEY=<your_key>

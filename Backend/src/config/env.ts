@@ -9,11 +9,8 @@ const __dirname = path.dirname(__filename);
 // Explicitly load .env from Backend directory
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-// PERMANENT FIX: If DATABASE_URL is not set or is the wrong SQLite value, use the correct PostgreSQL URL
-if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes('dev.db')) {
-	process.env.DATABASE_URL = 'postgresql://postgres.ctednhuhnuuefvcrhyto:gfdytyytxtt@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?pgbouncer=true';
-	console.log('⚠️  Using hardcoded DATABASE_URL as fallback');
-}
+// DATABASE_URL must be provided via environment (.env or host config).
+// The schema below fails fast with a clear message if it is missing or invalid.
 
 const EnvSchema = z.object({
 	PORT: z.string().default('4000'),
