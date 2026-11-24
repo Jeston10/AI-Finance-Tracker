@@ -58,7 +58,7 @@ export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       {/* Hero Section */}
-      <section className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-primary to-primary-foreground text-primary-foreground">
+      <section className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-accent-foreground to-primary text-primary-foreground">
         <div className="absolute inset-0">
           <ThreeDScene />
         </div>

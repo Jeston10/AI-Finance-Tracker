@@ -21,11 +21,11 @@ function AnimatedSphere() {
 
   return (
     <Sphere args={[1, 100, 200]} ref={mesh} scale={2}>
-      <MeshDistortMaterial 
-        color="#8352FD" 
-        attach="material" 
-        distort={0.5} 
-        speed={2} 
+      <MeshDistortMaterial
+        color="#10936A"
+        attach="material"
+        distort={0.5}
+        speed={2}
         roughness={0.1}
         metalness={0.8}
       />
@@ -39,7 +39,7 @@ function Scene() {
       <OrbitControls enableZoom={false} />
       <ambientLight intensity={0.4} />
       <directionalLight position={[3, 2, 1]} intensity={1.2} />
-      <pointLight position={[-3, -2, -1]} intensity={0.8} color="#8352FD" />
+      <pointLight position={[-3, -2, -1]} intensity={0.8} color="#E0B457" />
       <AnimatedSphere />
     </>
   )

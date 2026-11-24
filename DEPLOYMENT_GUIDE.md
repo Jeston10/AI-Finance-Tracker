@@ -43,8 +43,8 @@ In Render dashboard, go to **Environment** tab and add:
 ```
 PORT=4000
 NODE_ENV=production
-DATABASE_URL=postgresql://postgres.ctednhuhnuuefvcrhyto:gfdytyytxtt@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres?pgbouncer=true
-SUPABASE_URL=https://ctednhuhnuuefvcrhyto.supabase.co
+DATABASE_URL=postgresql://postgres.<project-ref>:<your_database_password>@<host>.pooler.supabase.com:5432/postgres?pgbouncer=true
+SUPABASE_URL=https://<project-ref>.supabase.co
 SUPABASE_ANON_KEY=<your_supabase_anon_key>
 SUPABASE_SERVICE_ROLE_KEY=<your_supabase_service_role_key>
 JWT_SECRET=<your_jwt_secret>
